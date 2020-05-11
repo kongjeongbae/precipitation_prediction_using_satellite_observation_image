@@ -3,6 +3,7 @@ import gc
 
 def rotation(train, test):
     all_np = np.vstack([train, test])
+    LEN_TRAIN = len(train)
     del train, test
 
     rotation_45_1_1 = all_np[:, :, :, -4] + all_np[:, :, :, -3]
@@ -73,7 +74,7 @@ def rotation(train, test):
     del all_np
     gc.collect()
 
-    return trian, test
+    return train, test
 
 
 

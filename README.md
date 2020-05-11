@@ -40,9 +40,9 @@ https://dacon.io/competitions/official/235591/overview/
 
 - 채널 0~8: 밝기 온도 (단위: K, 10.65GHz~89.0GHz)
 - 채널 09: 지표 타입 (앞자리 0: Ocean, 앞자리 1: Land, 앞자리 2: Coastal, 앞자리 3: Inland Water)
-- 채널 10: GMI 경도
+- 채널 10: GMI 경도: GMI는 마이크로파 이미지 센서 - 약 900km 관측 가능
 - 채널 11: GMI 위도
-- 채널 12: DPR 경도
+- 채널 12: DPR 경도: DPR은 실제 강수량 예측 레이더 센서 - 다만 관측 폭이 GMI에 비해 작음 (125, 245km 2개의 밴드를 이용하여 관측 중) 따라서 GMI의 이미지 센서를 토대로 나머지를 예측하고 싶어하는 것임.
 - 채널 13: DPR 위도
 - 채널 14: 강수량 (mm/h, 결측치는 -9999.xxx 형태의 float 값으로 표기)
 

@@ -1,3 +1,4 @@
+*.csv
 practice.ipynb
 .bash_profile
 .bashrc

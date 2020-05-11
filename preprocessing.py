@@ -1,7 +1,10 @@
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
 import numpy as np
+import gc
 
 def scaling(train, test, how):
+    TR_SHAPE_0, TR_SHAPE_1, TR_SHAPE_2, TR_SHAPE_3 = train.shape
+    TE_SHAPE_0, TE_SHAPE_1, TE_SHAPE_2, TE_SHAPE_3 = test.shape
     train = train.reshape(TR_SHAPE_0 * TR_SHAPE_1 * TR_SHAPE_2, TR_SHAPE_3)
     test = test.reshape(TE_SHAPE_0 * TE_SHAPE_1 * TE_SHAPE_2, TE_SHAPE_3)
     all_np = np.vstack([train, test])
