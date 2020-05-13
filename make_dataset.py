@@ -64,17 +64,17 @@ def augmentation(dir_train):
         
         # 1600 픽셀 사진에서 강수량이 0.1 이상인 픽셀이 100개 이상인 사진만 로테이션 시켜보자.
         if (npy[:,:,-1] >= 0.1).sum() > 100:
-            npy = np.rot90(npy, 2, (0,1)) # 2번째인자가 1이면 90도, 2이면 180도, 3번째 인자는 어떤 축을 잡고 돌릴것인지, 0번축, 1번축을 기준으로 돌릴것이다
+            npy = np.rot90(npy, 3, (0,1)) # 2번째인자가 1이면 90도, 2이면 180도, 3번째 인자는 어떤 축을 잡고 돌릴것인지, 0번축, 1번축을 기준으로 돌릴것이다
             rot_train.append(npy[:,:,:-1])
             rot_train_y.append(npy[:,:,-1])
         
     rot_train = np.array(rot_train)
     rot_train_y = np.array(rot_train_y)
 
-    with open('inputs/rot_train.pickle', 'wb') as f:
+    with open('inputs/rot_train270.pickle', 'wb') as f:
         pickle.dump(rot_train, f, protocol=4)
 
-    with open('inputs/rot_train_y.pickle', 'wb') as f:
+    with open('inputs/rot_train270_y.pickle', 'wb') as f:
         pickle.dump(rot_train_y, f, protocol=4)
     
     del rot_train
@@ -112,5 +112,5 @@ def augmentation_to_npy(dir_train):
             
 
 # original_set(dir_train, dir_test)
-# augmentation(dir_train)
-augmentation_to_npy(dir_train)
+augmentation(dir_train)
+# augmentation_to_npy(dir_train)
