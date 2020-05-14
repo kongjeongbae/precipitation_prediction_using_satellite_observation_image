@@ -2,7 +2,7 @@ from tensorflow.keras.layers import Dense, Conv2D, Dropout, Conv2DTranspose, Max
 from tensorflow.keras import Model
 
 def build_model(input_layer, start_neurons):
-    DROP_OUT = 0.4
+    DROP_OUT = 0.01
     # 40 x 40 -> 20 x 20
     conv1 = Conv2D(start_neurons * 1, (3, 3), activation="relu", padding="same")(input_layer)
     conv1 = Conv2D(start_neurons * 1, (3, 3), activation="relu", padding="same")(conv1)

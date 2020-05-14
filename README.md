@@ -131,3 +131,7 @@ def mae_over_fscore(y_true, y_pred):
 
 
 
+## 6. 새로 배운 개념
+
+- tfa.optimizers.SWA
+- FPN(Feature Pyramid Networks)

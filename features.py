@@ -80,12 +80,12 @@ def rotation(train, test):
 def terrain(train, test):
     a = (train[:, :, :, 9] / 100)
     a = a.astype('int8')
-    a = a.reshape(75957, 40, 40, 1)
+    a = a.reshape(len(train), 40, 40, 1)
     train = np.concatenate((train, a), axis=-1)
 
     a = (test[:, :, :, 9] / 100)
     a = a.astype('int8')
-    a = a.reshape(75957, 40, 40, 1)
+    a = a.reshape(len(test), 40, 40, 1)
     test = np.concatenate((test, a), axis=-1)
     del a
 
