@@ -18,31 +18,33 @@ def original_set(dir_train, dir_test):
         # missing value 제거
         if npy[:,:,-1].sum() < 0:
             continue
-        train.append(npy[:,:,:-1])
-        train_y.append(npy[:,:,-1])
+        if (npy[:,:,-1] >= 0.1).sum() >= 50:
+            train.append(npy[:,:,:-1])
+            train_y.append(npy[:,:,-1])
+
     train = np.array(train)
     train_y = np.array(train_y)
 
-    with open('inputs/train.pickle', 'wb') as f:
+    with open('inputs/train50.pickle', 'wb') as f:
         pickle.dump(train, f, protocol=4)
 
-    with open('inputs/train_y.pickle', 'wb') as f:
+    with open('inputs/train_y50.pickle', 'wb') as f:
         pickle.dump(train_y, f, protocol=4)
 
     del train
     del train_y
 
     # test dataset
-    test = []
+    # test = []
 
-    for i in os.listdir(dir_test):
-        npy = np.load(dir_test + i)
-        test.append(npy)
-    test = np.array(test)
+    # for i in os.listdir(dir_test):
+    #     npy = np.load(dir_test + i)
+    #     test.append(npy)
+    # test = np.array(test)
 
-    with open('inputs/test.pickle', 'wb') as f:
-        pickle.dump(test, f, protocol=4)
-    del test
+    # with open('inputs/test.pickle', 'wb') as f:
+    #     pickle.dump(test, f, protocol=4)
+    # del test
 
 
 
@@ -111,6 +113,6 @@ def augmentation_to_npy(dir_train):
                 np.save(f'inputs/rot/{i}_{rot[angle]}.npy', npy_)
             
 
-# original_set(dir_train, dir_test)
-augmentation(dir_train)
+original_set(dir_train, dir_test)
+# augmentation(dir_train)
 # augmentation_to_npy(dir_train)
