@@ -135,3 +135,28 @@ def mae_over_fscore(y_true, y_pred):
 
 - tfa.optimizers.SWA
 - FPN(Feature Pyramid Networks)
+
+- ```python
+  #Local Minima에 빠져버린 경우, 쉽게 빠져나오지 못하고 갇혀버리게 되는데, 이때 learning rate를 늘리거나 줄여주는 방법으로 빠져나오는 효과를 기대할 수 있습니다.
+  #Keras에는 콜백함수로 제공하고 있으며, ReduceLROnPlateau이 바로 그 역할을 합니다
+  # https://keras.io/api/callbacks/reduce_lr_on_plateau/
+  
+  from keras.callbacks import ReduceLROnPlateau
+  
+  # 콜백 정의
+  reduceLR = ReduceLROnPlateau(
+      monitor='val_loss',  # 검증 손실을 기준으로 callback이 호출됩니다
+      factor=0.5,          # callback 호출시 학습률을 1/2로 줄입니다
+      patience=10,         # epoch 10 동안 개선되지 않으면 callback이 호출됩니다
+  )
+  
+  # model.fit 때 callback
+  history = model.fit(x_train, y_train, 
+        validation_data=(x_valid, y_valid),
+        epochs=EPOCH, 
+        batch_size=BATCH_SIZE, 
+        callbacks=[reduceLR], 
+       )
+  ```
+
+- 
