@@ -46,7 +46,32 @@ def original_set(dir_train, dir_test):
     #     pickle.dump(test, f, protocol=4)
     # del test
 
+def tree_set():
+    dir_train = 'inputs/train/tmp/'
+    # train dataset
+    train = []
+    train_y = []
 
+    for i in tqdm(os.listdir(dir_train)):
+        npy = np.load(dir_train + i)
+        
+        # missing value 제거
+        if npy[:,:,-1].sum() < 0:
+            continue
+        train.append(npy[:,:,:-1])
+        train_y.append(npy[:,:,-1])
+
+    train = np.array(train)
+    train_y = np.array(train_y)
+
+    with open('inputs/tree_2018.pickle', 'wb') as f:
+        pickle.dump(train, f, protocol=4)
+
+    with open('inputs/tree_y_2018.pickle', 'wb') as f:
+        pickle.dump(train_y, f, protocol=4)
+
+    del train
+    del train_y
 
 def augmentation(dir_train):
 
@@ -115,4 +140,5 @@ def augmentation_to_npy(dir_train):
 
 original_set(dir_train, dir_test)
 # augmentation(dir_train)
+# tree_set()
 # augmentation_to_npy(dir_train)
