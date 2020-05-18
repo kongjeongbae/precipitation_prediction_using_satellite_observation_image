@@ -7,7 +7,7 @@ dir_train = 'inputs/train/'
 dir_test = 'inputs/test/'
 
 def original_set(dir_train, dir_test):
-
+    UPPER = 100
     # train dataset
     train = []
     train_y = []
@@ -18,17 +18,17 @@ def original_set(dir_train, dir_test):
         # missing value 제거
         if npy[:,:,-1].sum() < 0:
             continue
-        if (npy[:,:,-1] >= 0.1).sum() >= 50:
+        if (npy[:,:,-1] >= 0.1).sum() >= UPPER:
             train.append(npy[:,:,:-1])
             train_y.append(npy[:,:,-1])
 
     train = np.array(train)
     train_y = np.array(train_y)
 
-    with open('inputs/train50.pickle', 'wb') as f:
+    with open(f'inputs/train{UPPER}.pickle', 'wb') as f:
         pickle.dump(train, f, protocol=4)
 
-    with open('inputs/train_y50.pickle', 'wb') as f:
+    with open(f'inputs/train_y{UPPER}.pickle', 'wb') as f:
         pickle.dump(train_y, f, protocol=4)
 
     del train
