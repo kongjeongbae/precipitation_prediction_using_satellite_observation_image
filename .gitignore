@@ -1,10 +1,11 @@
+*.h5
 *.pickle
 *.csv
 practice.ipynb
 .bash_profile
 .bashrc
 inputs/
-*.h5
+
 catboost_info/
 # Created by https://www.gitignore.io/api/venv,python,jupyternotebooks,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=venv,python,jupyternotebooks,visualstudiocode
