@@ -314,7 +314,7 @@ def resnet_model(shape):
     concat = concatenate([concat, conv], axis=3)
 
     # 원래는 5였음 - 6분정도 걸리고 2로 줄이면 3분정도 걸림 /에폭당
-    for i in range(5):
+    for i in range(9):
         bn = BatchNormalization()(concat)
         conv = Conv2D(32, kernel_size=3, strides=1, padding='same',
                       activation='relu', kernel_initializer='he_normal')(bn)
