@@ -1,4 +1,4 @@
-from tensorflow.keras.layers import Dense, Conv2D, Dropout, Conv2DTranspose, MaxPooling2D, BatchNormalization, Activation, concatenate, Input, GlobalAveragePooling2D, add
+from tensorflow.keras.layers import Dense, Conv2D, Dropout, Conv2DTranspose, MaxPooling2D, BatchNormalization, Activation, concatenate, Input, GlobalAveragePooling2D, add, AveragePooling2D
 from tensorflow.keras import Model
 
 
@@ -327,3 +327,4 @@ def resnet_model(shape):
     model = Model(inputs=inputs, outputs=outputs)
 
     return model
+
