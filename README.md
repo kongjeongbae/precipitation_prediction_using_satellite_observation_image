@@ -2,6 +2,10 @@
 
 # 위성관측 데이터 활용 강수량 산출 경진대회
 
+## 3위 수상
+
+
+
 <img src="md_imgs/header.jpg" alt="md_img" width="100%;" />
 
 ## 1. 개요
@@ -123,7 +127,8 @@ def mae_over_fscore(y_true, y_pred):
 
 ## 4. Preprocessing (데이터 전처리)
 
-
+- 채널별 회전 변환
+- 9번 채널 정규화
 
 
 
@@ -159,4 +164,5 @@ def mae_over_fscore(y_true, y_pred):
        )
   ```
 
-- 
+  
+  
