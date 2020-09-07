@@ -2,45 +2,39 @@
 
 # 위성관측 데이터 활용 강수량 산출 경진대회
 
-## 3위 수상
-
-
-
 <img src="md_imgs/header.jpg" alt="md_img" width="100%;" />
+
+- 팀명: endgame
+- 팀원: 공정배
+- 순위: 3위
+- 상금: 50만원
+
+
 
 ## 1. 개요
 
-## 기상 | 위성 이미지 빅데이터와 AI로 NASA보다 정확한 강수량 산출
-
-https://dacon.io/competitions/official/235591/overview/
+- https://dacon.io/competitions/official/235591/overview/
+- **AI_S2_endgame.ipynb에 제출과 관련된 모든 내용(EDA, 모델링 등)이 정리되어 있습니다.**
+- 외부데이터 및 pretrained 모델을 사용하지 않았습니다.
+- 하드웨어 리소스가 많이 소요되는 코드입니다. 제 컴퓨터의 램이 128GB라서 모든 데이터를 램에 올려놓고 작업을 했습니다. 리소스가 부족할 경우, Data loader를 활용하여 데이터를 불러오시면 될 것 같습니다.
+- 저 같은 경우, EDA, 모델학습을 각각 다른 ipynb 파일에서 작업을 진행했는데, 제출용 파일이다보니 모든 코드를 한 곳에 모아 실행하기에 메모리가 부족할 가능성이 커질 것 같습니다.
+- train.zip, test.zip 파일은 각각 data/train, data/test 폴더에 압축을 해제해주세요. 데이터는 https://dacon.io/competitions/official/235591/data/ 에서 다운받을 수 있습니다.
+- sample_submission.csv는 data 폴더에 위치시켜 주세요.
+- GPU: RTX 2070 super 기준 training에 모델 1: 10시간, 모델2: 10시간, 모델3: 14시간 정도 소요 되었습니다.
+- 제가 학습시킨 weight를 로드하고 싶으시다면, `제출자료.zip` 안의 model1.h5, model2.h5, model3.h5를 `AI_S2_endgame.ipynb`파일이 있는 곳에 위치시켜 주세요.
 
 
 
 ## 2. Data
 
-해결해야 하는 문제
-
-\-   test.zip 파일 각각 픽셀별 강수량 산출
-
-
-
-데이터 설명
-
-\-   GPM(Global Precipitation Measurement) Core 위성의 GMI/DPR 센서에서 북서태평양영역 (육지와 바다를 모두 포함) 에서 관측된 자료
-
-\-   특정 orbit에서 기록된 자료를 40 X 40 형태로 분할(subset) 하여 제공
-
-\-   subset`_`######`_`##.npy 파일로 제공되며, (height, width, channel) 형태
-
-\-   ###### : 위성이 사용되기 시작한 이후로 몇 번째 지구를 돌았는지 나타내는 수(orbit 번호)
-
-\-   ##: 해당 orbit에서 몇 번째 subset인지를 나타내는 수입니다. orbit별로 subset의 개수는 다를 수 있음 (subset 번호)
-
-\-   데이터 출처 및 기타 세부사항은 토론 게시판의 pdf 자료 및 영상 자료 확인
-
-\-   pdf자료: https://dacon.io/competitions/official/235591/talkboard/400589
-
-\-   영상자료: https://dacon.io/competitions/official/235591/talkboard/400598
+- GPM(Global Precipitation Measurement) Core 위성의 GMI/DPR 센서에서 북서태평양영역 (육지와 바다를 모두 포함) 에서 관측된 자료
+- 특정 orbit에서 기록된 자료를 40 X 40 형태로 분할(subset) 하여 제공
+- `subset_######_##.npy` 파일로 제공되며, (height, width, channel) 형태
+- \###### : 위성이 사용되기 시작한 이후로 몇 번째 지구를 돌았는지 나타내는 수(orbit 번호)
+- \##: 해당 orbit에서 몇 번째 subset인지를 나타내는 수입니다. orbit별로 subset의 개수는 다를 수 있음 (subset 번호)
+- 데이터 출처 및 기타 세부사항은 토론 게시판의 pdf 자료 및 영상 자료 확인
+  - pdf자료: https://dacon.io/competitions/official/235591/talkboard/400589
+  - 영상자료: https://dacon.io/competitions/official/235591/talkboard/400598
 
 - 채널 0~8: 밝기 온도 (단위: K, 10.65GHz~89.0GHz)
 - 채널 09: 지표 타입 (앞자리 0: Ocean, 앞자리 1: Land, 앞자리 2: Coastal, 앞자리 3: Inland Water)
@@ -52,29 +46,25 @@ https://dacon.io/competitions/official/235591/overview/
 
 
 
-train.zip
+`train.zip`
 
-\-   2016~2018 년 관측된 자료 (76,345개)
-
-\-   2016년 자료: orbit 번호 010462 ~ 016152 (25,653개)
-
-\-   2017년 자료: orbit 번호 016154 ~ 021828 (25,197개)
-
-\-   2018년 자료: orbit 번호 021835 ~ 027509 (25,495개)
+- 2016~2018 년 관측된 자료 (76,345개)
+- 2016년 자료: orbit 번호 010462 ~ 016152 (25,653개)
+- 2017년 자료: orbit 번호 016154 ~ 021828 (25,197개)
+- 2018년 자료: orbit 번호 021835 ~ 027509 (25,495개)
 
 
 
-test.zip 
+`test.zip `
 
-\-   2019년 관측된 자료 (2,416개)
+- 2019년 관측된 자료 (2,416개)
 
 
 
-sample_submission.csv
+`sample_submission.csv`
 
-\-   제출 양식 예시
-
-\-   시각화 참조: https://dacon.io/competitions/official/235591/talkboard/400629
+- 제출 양식 예시
+  - 시각화 참조: https://dacon.io/competitions/official/235591/talkboard/400629
 
 
 
@@ -120,49 +110,3 @@ def mae_over_fscore(y_true, y_pred):
     # f1_score가 0일 나올 경우를 대비하여 소량의 값 (1e-07) 추가 
     return mae / (f_score + 1e-07) 
 ```
-
-
-
-
-
-## 4. Preprocessing (데이터 전처리)
-
-- 채널별 회전 변환
-- 9번 채널 정규화
-
-
-
-## 5. Result (결과)
-
-
-
-## 6. 새로 배운 개념
-
-- tfa.optimizers.SWA
-- FPN(Feature Pyramid Networks)
-
-- ```python
-  #Local Minima에 빠져버린 경우, 쉽게 빠져나오지 못하고 갇혀버리게 되는데, 이때 learning rate를 늘리거나 줄여주는 방법으로 빠져나오는 효과를 기대할 수 있습니다.
-  #Keras에는 콜백함수로 제공하고 있으며, ReduceLROnPlateau이 바로 그 역할을 합니다
-  # https://keras.io/api/callbacks/reduce_lr_on_plateau/
-  
-  from keras.callbacks import ReduceLROnPlateau
-  
-  # 콜백 정의
-  reduceLR = ReduceLROnPlateau(
-      monitor='val_loss',  # 검증 손실을 기준으로 callback이 호출됩니다
-      factor=0.5,          # callback 호출시 학습률을 1/2로 줄입니다
-      patience=10,         # epoch 10 동안 개선되지 않으면 callback이 호출됩니다
-  )
-  
-  # model.fit 때 callback
-  history = model.fit(x_train, y_train, 
-        validation_data=(x_valid, y_valid),
-        epochs=EPOCH, 
-        batch_size=BATCH_SIZE, 
-        callbacks=[reduceLR], 
-       )
-  ```
-
-  
-  
